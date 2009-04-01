@@ -1,0 +1,10 @@
+History.txt
+Manifest.txt
+README.txt
+COPYING.txt
+Rakefile
+lib/init.rb
+examples/murmur.rb
+spec/init_spec.rb
+spec/bin/mock_daemon.rb
+spec/bin/simple_init.rb

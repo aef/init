@@ -1,0 +1,159 @@
+= Init
+
+* Project: https://rubyforge.org/projects/aef/
+* RDoc: http://aef.rubyforge.org/init/
+
+== DESCRIPTION:
+
+Clean and simple *nix init scripts with Ruby
+
+== FEATURES/PROBLEMS:
+
+* Tested and fully working on:
+  * Debian GNU/Linux 3.0 i386 (Ruby 1.8.6)
+  * Ubuntu Linux 8.10 i386_64 (Ruby 1.8.7 and 1.9.1p0)
+
+== SYNOPSIS:
+
+Simply subclass Init and define at least a start and a stop method. At the end,
+call the parse method on that class.
+
+  class DemoSubclass < Init
+    def start
+      system('echo start')
+    end
+
+    def stop
+      system('echo stop')
+    end
+  end
+  
+  DemoSubclass.parse
+
+To be able to call the commands from ruby you should wrap the parse method call
+in a block that only calls it if the script is executed on the commandline.
+
+  if __FILE__ == $PROGRAM_NAME
+    DemoSubclass.parse
+  end
+
+There is no need to implement the command restart in most cases, as there is one
+defined by default, which simply calls the commands stop and start in a row.
+A delay can between the two commands can be defined:
+
+  class DemoSubclass < Init
+    ...
+    stop_start_delay 3
+    ...
+  end
+
+If no command is specified on the commandline, restart is called by default.
+This default can be changed:
+
+  class DemoSubclass < Init
+    ...
+    default_command :start
+    ...
+  end
+
+If you want to share commands between init scripts, you can also simple put a
+class between Init and the final implementation:
+
+  class CommonCommands > Init
+    def common
+      system('echo common')
+    end
+  end
+
+  class DemoSubclass > CommonCommands
+    ...
+  end
+
+See examples/murmur.rb and spec/bin/simple_ini.rb for working example classes.
+
+== REQUIREMENTS:
+
+* For general use:
+  * rubygems
+
+* For automated testing:
+  * rspec
+  * facets
+  * hoe
+
+== INSTALL:
+
+=== Normal
+
+  gem install init
+
+=== High security (recommended)
+
+There is a high security installation option available through rubygems. It is
+highly recommended over the normal installation, although it may be a bit less
+comfortable. To use the installation method, you will need my public key, which
+I use for cryptographic signatures on all my gems. You can find the public key
+and more detailed verification information in the aef-certificates section of my
+rubyforge project[https://rubyforge.org/frs/?group_id=7890&release_id=31749]
+
+Add the key to your rubygems' trusted certificates by the following command:
+
+  gem cert --add aef.pem
+
+Now you can install the gem while automatically verifying it's signature by the
+following command:
+
+  gem install init -P HighSecurity
+
+Please notice that you will need other keys for dependent libraries, so you may
+have to install dependencies manually.
+
+=== Automated testing
+
+You can test this package through rspec on your system. First find the path
+where the gem was installed to:
+
+  gem which init
+
+Go into the root directory of the installed gem and run the following command
+to start the test runner:
+
+  rake spec
+
+If something goes wrong you should be noticed through failing examples.
+
+== DEVELOPMENT:
+
+This software is developed in the source code management system git hosted
+at rubyforge.org. You can download the complete sourcecode through the following
+command:
+
+  git clone https://git.rubyforge.org/aef/init.git
+
+I'm always very happy if someone else is helping me to make my software better.
+If you want your changes to be included in the official release, please send me
+a patch. You can generate a patch-file by the following command:
+
+  git diff blabla
+
+Please make sure to write tests for your changes and notice that I can't promise
+to include your changes before reviewing them.
+
+== LICENSE:
+
+Copyright 2009 Alexander E. Fischer <aef@raxys.net>
+
+This file is part of Init.
+
+Init is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
