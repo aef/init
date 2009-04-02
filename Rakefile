@@ -4,7 +4,7 @@ require 'rubygems'
 require 'hoe'
 require './lib/init.rb'
 
-Hoe.new('init', Init::VERSION) do |p|
+Hoe.new('init', Aef::Init::VERSION) do |p|
   p.rubyforge_name = 'aef'
   p.developer('Alexander E. Fischer', 'aef@raxys.net')
   p.extra_dev_deps = %w{rspec facets}

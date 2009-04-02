@@ -18,7 +18,7 @@ Clean and simple *nix init scripts with Ruby
 Simply subclass Init and define at least a start and a stop method. At the end,
 call the parse method on that class.
 
-  class DemoSubclass < Init
+  class DemoSubclass < Aef::Init
     def start
       system('echo start')
     end
@@ -41,7 +41,7 @@ There is no need to implement the command restart in most cases, as there is one
 defined by default, which simply calls the commands stop and start in a row.
 A delay can between the two commands can be defined:
 
-  class DemoSubclass < Init
+  class DemoSubclass < Aef::Init
     ...
     stop_start_delay 3
     ...
@@ -50,7 +50,7 @@ A delay can between the two commands can be defined:
 If no command is specified on the commandline, restart is called by default.
 This default can be changed:
 
-  class DemoSubclass < Init
+  class DemoSubclass < Aef::Init
     ...
     default_command :start
     ...
@@ -59,7 +59,7 @@ This default can be changed:
 If you want to share commands between init scripts, you can also simple put a
 class between Init and the final implementation:
 
-  class CommonCommands > Init
+  class CommonCommands > Aef::Init
     def common
       system('echo common')
     end
@@ -125,10 +125,10 @@ If something goes wrong you should be noticed through failing examples.
 == DEVELOPMENT:
 
 This software is developed in the source code management system git hosted
-at rubyforge.org. You can download the complete sourcecode through the following
+at github.org. You can download the complete sourcecode through the following
 command:
 
-  git clone https://git.rubyforge.org/aef/init.git
+  git clone git://github.org/aef/init.git
 
 I'm always very happy if someone else is helping me to make my software better.
 If you want your changes to be included in the official release, please send me

@@ -4,6 +4,7 @@ README.txt
 COPYING.txt
 Rakefile
 lib/init.rb
+lib/init/init.rb
 examples/murmur.rb
 spec/init_spec.rb
 spec/bin/mock_daemon.rb

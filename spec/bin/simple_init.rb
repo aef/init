@@ -20,7 +20,7 @@
 require 'lib/init'
 
 # A library in between the base and the final class
-class MiddleInit < Init
+class MiddleInit < Aef::Init
   RUBY_PATH = 'ruby'
   MOCK_EXECUTABLE = "#{RUBY_PATH} spec/bin/mock_daemon.rb"
 

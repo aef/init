@@ -15,71 +15,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'rubygems'
-
-# Clean and simple *nix init scripts with Ruby
-class Init
-  VERSION = '1.0.0'
-
-  # Call this to begin commandline parsing
-  #
-  # If an invalid command is specified on the commandline, a usage example is
-  # displayed. If no command is specified, the default command is started
-  def self.parse
-    command = ARGV.shift || :default
-
-    valid_commands = []
-
-    self.ancestors.each do |klass|
-      valid_commands += klass.public_instance_methods(false)
-      break if klass == Init
-    end
-
-    valid_commands.uniq!
-
-    @@default_command ||= 'restart'
-    @@stop_start_delay ||= 0
-
-    # This is neccessary because since ruby 1.9, the instance_methods method
-    # returns an array of symbols instead of an array of strings which it did
-    # in 1.8
-    command = command.to_sym if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new('1.9')
-
-    if command == :default
-      new.send(@@default_command)
-    elsif valid_commands.include?(command)
-      new.send(command)
-    else
-      puts "Usage: #$PROGRAM_NAME {#{valid_commands.sort.join('|')}}"; exit false
-    end
-  end
-
-  # Set a delay in seconds between the call of the stop and the start method in
-  # the predefined restart method
-  def self.stop_start_delay(seconds)
-    @@stop_start_delay = seconds
-  end
-
-  # Set a default command to be called if no command is specified on the
-  # commandline.
-  def self.default_command(command)
-    @@default_command = command
-  end
-
-  # The start method needs to be implemented in a subclass
-  def start
-    warn 'start method needs to be implemented'; exit false
-  end
-
-  # The stop method needs to be implemented in a subclass
-  def stop
-    warn 'stop method needs to be implemented'; exit false
-  end
-
-  # By default restart simply calls stop and then start
-  def restart
-    stop
-    sleep @@stop_start_delay
-    start
-  end
+# Namespace for projects of Alexander E. Fischer <aef@raxys.net>
+#
+# If you want to be able to simply type Example instead of Aef::Example to
+# address classes in this namespace simply write the following before using the
+# classes:
+#
+#  include Aef
+module Aef
+  
 end
+
+require 'lib/init/init'

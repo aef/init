@@ -31,7 +31,7 @@ module InitSpecHelper
   end
 end
 
-describe Init do
+describe Aef::Init do
   before(:each) do
     # Before ruby 1.8.7, the tmpdir standard library had no method to create
     # a temporary directory (mktmpdir).

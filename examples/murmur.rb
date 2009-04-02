@@ -17,9 +17,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'lib/init'
+require 'init'
 
-class Murmur < Init
+# An example init script for the voice chat application Murmur
+class Murmur < Aef::Init
   PATH = '/opt/murmur'
   DAEMON = File.join(PATH, 'murmur.x86')
   PIDFILE = '/var/run/murmur/murmur.pid'
