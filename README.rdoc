@@ -2,6 +2,7 @@
 
 * Project: https://rubyforge.org/projects/aef/
 * RDoc: http://aef.rubyforge.org/init/
+* Github: http://github.com/aef/init/
 
 == DESCRIPTION:
 
@@ -10,8 +11,8 @@ Clean and simple *nix init scripts with Ruby
 == FEATURES/PROBLEMS:
 
 * Tested and fully working on:
-  * Debian GNU/Linux 3.0 i386 (Ruby 1.8.6)
   * Ubuntu Linux 8.10 i386_64 (Ruby 1.8.7 and 1.9.1p0)
+  * Debian GNU/Linux 4.0 i386 (Ruby 1.8.6)
 
 == SYNOPSIS:
 
@@ -73,13 +74,12 @@ See examples/murmur.rb and spec/bin/simple_ini.rb for working example classes.
 
 == REQUIREMENTS:
 
-* For general use:
-  * rubygems
+* rubygems
 
-* For automated testing:
-  * rspec
-  * facets
-  * hoe
+=== Additional for automated testing
+* hoe
+* rspec
+* sys-uname
 
 == INSTALL:
 
@@ -103,7 +103,7 @@ Add the key to your rubygems' trusted certificates by the following command:
 Now you can install the gem while automatically verifying it's signature by the
 following command:
 
-  gem install init -P HighSecurity
+  gem install init --ignore-dependencies -P HighSecurity
 
 Please notice that you will need other keys for dependent libraries, so you may
 have to install dependencies manually.
@@ -120,21 +120,26 @@ to start the test runner:
 
   rake spec
 
+On Windows systems you have to run the following instead:
+
+  spec spec/**/*_spec.rb
+
 If something goes wrong you should be noticed through failing examples.
 
 == DEVELOPMENT:
 
 This software is developed in the source code management system git hosted
-at github.org. You can download the complete sourcecode through the following
+at github.com. You can download the most recent sourcecode through the following
 command:
 
-  git clone git://github.org/aef/init.git
+  git clone git://github.com/aef/init.git
 
-I'm always very happy if someone else is helping me to make my software better.
-If you want your changes to be included in the official release, please send me
-a patch. You can generate a patch-file by the following command:
+Help on making this software better is always very appreciated. If you want your
+changes to be included in the official release, please send me a patch through
+the project's tracker[https://rubyforge.org/tracker/?group_id=7890] at
+rubyforge.org. You can generate a patch-file by the following command:
 
-  git diff blabla
+  git diff > patch.diff
 
 Please make sure to write tests for your changes and notice that I can't promise
 to include your changes before reviewing them.
