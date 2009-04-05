@@ -26,4 +26,5 @@ module Aef
   
 end
 
-require 'lib/init/init'
+libdir = File.dirname(__FILE__)
+require File.join(libdir, 'init/init')
