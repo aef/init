@@ -1,6 +1,7 @@
 = Init
 
 * Project: https://rubyforge.org/projects/aef/
+* RDoc: http://rdoc.info/projects/aef/init/
 * RDoc: http://aef.rubyforge.org/init/
 * Github: http://github.com/aef/init/
 
