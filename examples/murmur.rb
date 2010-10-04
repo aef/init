@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 #
-# Copyright 2009 Alexander E. Fischer <aef@raxys.net>
+# Copyright Alexander E. Fischer <aef@raxys.net>, 2009-2010
 #
 # This file is part of Init.
 #
@@ -17,13 +17,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'init'
+require 'aef/init'
 
 # An example init script for the voice chat application Murmur
 class Murmur < Aef::Init
-  PATH = '/opt/murmur'
-  DAEMON = File.join(PATH, 'murmur.x86')
-  PIDFILE = '/var/run/murmur/murmur.pid'
+  PATH = Pathname('/opt/murmur')
+  DAEMON = PATH + 'murmur.x86'
+  PIDFILE = Pathname('/var/run/murmur/murmur.pid')
   USER = 'mumble'
 
   # Defines the seconds to wait between stop and start in the predefined restart

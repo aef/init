@@ -1,4 +1,4 @@
-# Copyright 2009 Alexander E. Fischer <aef@raxys.net>
+# Copyright Alexander E. Fischer <aef@raxys.net>, 2009-2010
 #
 # This file is part of Init.
 #
@@ -15,94 +15,69 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'lib/init'
-
-require 'fileutils'
-require 'tmpdir'
+require './spec/spec_helper'
 
 require 'rubygems'
 require 'facets/timer'
 
-module InitSpecHelper
-  # If there is a way to get the executable path of the currently running ruby
-  # interpreter, please tell me how.
-  warn 'Attention: If the ruby interpreter to be tested with is not ruby in the ' +
-       "default path, you have to change this manually in #{__FILE__} line #{__LINE__ + 1}"
-  RUBY_PATH = 'ruby'
-
-  def init_executable
-    "#{RUBY_PATH} spec/bin/simple_init.rb"
-  end
-end
-
 describe Aef::Init do
   before(:each) do
-    # Before ruby 1.8.7, the tmpdir standard library had no method to create
-    # a temporary directory (mktmpdir).
-    if Gem::Version.new(RUBY_VERSION) < Gem::Version.new('1.8.7')
-      @folder_path = File.join(Dir.tmpdir, 'init_spec')
-      Dir.mkdir(@folder_path)
-    else
-      @folder_path = Dir.mktmpdir('init_spec')
-    end
+    @temp_dir = create_temp_dir
   end
 
   after(:each) do
-    FileUtils.rm_rf(@folder_path)
+    @temp_dir.rmtree
   end
 
-  include InitSpecHelper
-  
   it "should correctly execute the start command" do
-    start_output = File.join(@folder_path, 'start_output')
+    start_output = @temp_dir + 'start_output'
 
     lambda {
-      `#{init_executable} start #{start_output}`.should be_true
-    }.should change{File.exist?(start_output)}.from(false).to(true)
+      `#{executable} start #{start_output}`.should be_true
+    }.should change{start_output.exist?}.from(false).to(true)
 
-    File.read(start_output).should eql("#{start_output} --start --example -y\n")
+    start_output.read.should == "#{start_output} --start --example -y\n"
 
   end
 
   it "should correctly execute the stop command" do
-    stop_output = File.join(@folder_path, 'stop_output')
+    stop_output = @temp_dir + 'stop_output'
 
     lambda {
-      `#{init_executable} stop #{stop_output}`.should be_true
-    }.should change{File.exist?(stop_output)}.from(false).to(true)
+      `#{executable} stop #{stop_output}`.should be_true
+    }.should change{stop_output.exist?}.from(false).to(true)
 
-    File.read(stop_output).should eql("#{stop_output} --stop --example -y\n")
+    stop_output.read.should == "#{stop_output} --stop --example -y\n"
   end
 
   it "should correctly execute the restart command" do
-    restart_output = File.join(@folder_path, 'restart_output')
+    restart_output = @temp_dir + 'restart_output'
 
     lambda {
-      `#{init_executable} restart #{restart_output}`.should be_true
-    }.should change{File.exist?(restart_output)}.from(false).to(true)
+      `#{executable} restart #{restart_output}`.should be_true
+    }.should change{restart_output.exist?}.from(false).to(true)
 
-    File.read(restart_output).should eql(
-      "#{restart_output} --stop --example -y\n#{restart_output} --start --example -y\n")
+    restart_output.read.should ==
+      "#{restart_output} --stop --example -y\n#{restart_output} --start --example -y\n"
   end
 
   it "should correctly execute the middle command" do
-    middle_output = File.join(@folder_path, 'middle_output')
+    middle_output = @temp_dir + 'middle_output'
 
     lambda {
-      `#{init_executable} middle #{middle_output}`.should be_true
-    }.should change{File.exist?(middle_output)}.from(false).to(true)
+      `#{executable} middle #{middle_output}`.should be_true
+    }.should change{middle_output.exist?}.from(false).to(true)
 
-    File.read(middle_output).should eql(
-      "#{middle_output} --middle -e --abc\n")
+    middle_output.read.should == "#{middle_output} --middle -e --abc\n"
   end
 
   it "should wait 3 seconds between stop and start through the restart command" do
-    restart_output = File.join(@folder_path, 'restart_output')
+    restart_output = @temp_dir + 'restart_output'
 
     timer = Timer.new
     timer.start
 
-    `#{init_executable} restart #{restart_output}`.should be_true
+    `#{executable} restart #{restart_output}`.should be_true
 
     timer.stop
     (timer.total_time.should > 1.5).should be_true
@@ -111,23 +86,23 @@ describe Aef::Init do
   it "should display a usage example if a wrong command is specified" do
     usage_information = "Usage: spec/bin/simple_init.rb {middle|restart|start|stop}\n"
 
-    `#{init_executable} invalid`.should eql(usage_information)
+    `#{executable} invalid`.should == usage_information
   end
 
   it "should only offer methods which are defined in Init or it's child classes" do
     usage_information = "Usage: spec/bin/simple_init.rb {middle|restart|start|stop}\n"
 
-    `#{init_executable} methods`.should eql(usage_information)
-    `#{init_executable} frozen?`.should eql(usage_information)
-    `#{init_executable} to_a`.should eql(usage_information)
+    `#{executable} methods`.should == usage_information
+    `#{executable} frozen?`.should == usage_information
+    `#{executable} to_a`.should == usage_information
   end
 
   it "should only offer methods which are defined as public in Init or it's child classes" do
     usage_information = "Usage: spec/bin/simple_init.rb {middle|restart|start|stop}\n"
     
-    `#{init_executable} middle_protected`.should eql(usage_information)
-    `#{init_executable} middle_private`.should eql(usage_information)
-    `#{init_executable} end_protected`.should eql(usage_information)
-    `#{init_executable} end_private`.should eql(usage_information)
+    `#{executable} middle_protected`.should == usage_information
+    `#{executable} middle_private`.should == usage_information
+    `#{executable} end_protected`.should == usage_information
+    `#{executable} end_private`.should == usage_information
   end
 end

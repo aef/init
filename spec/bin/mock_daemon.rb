@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 #
-# Copyright 2009 Alexander E. Fischer <aef@raxys.net>
+# Copyright Alexander E. Fischer <aef@raxys.net>, 2009-2010
 #
 # This file is part of Init.
 #

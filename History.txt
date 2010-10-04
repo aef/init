@@ -1,8 +1,14 @@
-=== 1.1.1 / unreleased
+=== 1.1.0 / 2010-10-04
 
-* 1 minor enhancement
+* 3 minor enhancements
 
-  * Informal message about testing with multiple Ruby versions added
+  * Pathname library required by default
+  * semver gem is used to define the version
+  * Specs heavily improved
+
+* 1 minor bugfix
+
+  * Files are now correctly namespaced
 
 === 1.0.0 / 2009-03-25
 

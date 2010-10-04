@@ -1,4 +1,4 @@
-# Copyright 2009 Alexander E. Fischer <aef@raxys.net>
+# Copyright Alexander E. Fischer <aef@raxys.net>, 2009-2010
 #
 # This file is part of Init.
 #
@@ -15,6 +15,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+require 'rubygems'
+require 'pathname'
+require 'semver'
+
 # Namespace for projects of Alexander E. Fischer <aef@raxys.net>
 #
 # If you want to be able to simply type Example instead of Aef::Example to
@@ -23,8 +27,5 @@
 #
 #  include Aef
 module Aef
-  
+  autoload :Init, 'aef/init/init'
 end
-
-libdir = File.dirname(__FILE__)
-require File.join(libdir, 'init/init')

@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 #
-# Copyright 2009 Alexander E. Fischer <aef@raxys.net>
+# Copyright Alexander E. Fischer <aef@raxys.net>, 2009-2010
 #
 # This file is part of Init.
 #
@@ -17,12 +17,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'lib/init'
+require 'aef/init'
 
 # A library in between the base and the final class
 class MiddleInit < Aef::Init
-  RUBY_PATH = 'ruby'
-  MOCK_EXECUTABLE = "#{RUBY_PATH} spec/bin/mock_daemon.rb"
+  INTERPRETER = Pathname(RbConfig::CONFIG['bindir']) + RbConfig::CONFIG['ruby_install_name']
+  MOCK_EXECUTABLE = "#{INTERPRETER} spec/bin/mock_daemon.rb"
 
   def middle
     tempfile = ARGV.first
@@ -44,9 +44,6 @@ end
 
 # The final implementation
 class SimpleInit < MiddleInit
-  RUBY_PATH = 'ruby'
-  MOCK_EXECUTABLE = "#{RUBY_PATH} spec/bin/mock_daemon.rb"
-
   # Defines the seconds to wait between stop and start in the predefined restart
   # command
   stop_start_delay 1.5

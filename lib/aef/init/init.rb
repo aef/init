@@ -1,4 +1,4 @@
-# Copyright 2009 Alexander E. Fischer <aef@raxys.net>
+# Copyright Alexander E. Fischer <aef@raxys.net>, 2009-2010
 #
 # This file is part of Init.
 #
@@ -15,11 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'rubygems'
-
 # Clean and simple *nix init scripts with Ruby
 class Aef::Init
-  VERSION = '1.0.0'
+  VERSION = SemVer.find
 
   # Call this to begin commandline parsing
   #
@@ -43,7 +41,7 @@ class Aef::Init
     # This is neccessary because since ruby 1.9, the instance_methods method
     # returns an array of symbols instead of an array of strings which it did
     # in 1.8
-    command = command.to_sym if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new('1.9')
+    command = command.to_sym if Gem::Version.new("#{RUBY_VERSION}") >= Gem::Version.new('1.9')
 
     if command == :default
       new.send(@@default_command)
