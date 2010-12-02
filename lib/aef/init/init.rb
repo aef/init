@@ -17,7 +17,7 @@
 
 # Clean and simple *nix init scripts with Ruby
 class Aef::Init
-  VERSION = '1.2.0'
+  VERSION = '1.2.1'.freeze
 
   # Call this to begin commandline parsing
   #

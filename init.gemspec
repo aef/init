@@ -1,10 +1,9 @@
 Gem::Specification.new do |s|
   s.name = %q{init}
-  s.version = "1.2.0"
+  s.version = "1.2.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Alexander E. Fischer"]
-  s.cert_chain = ["/home/dimedo/.gem/gem-public_cert.pem"]
   s.date = %q{2010-12-02}
   s.description = %q{Clean and simple *nix init scripts with Ruby}
   s.email = ["aef@raxys.net"]
@@ -15,7 +14,6 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{aef}
   s.rubygems_version = %q{1.3.7}
-  s.signing_key = %q{/home/dimedo/.gem/gem-private_key.pem}
   s.summary = %q{Clean and simple *nix init scripts with Ruby}
 
   if s.respond_to? :specification_version then

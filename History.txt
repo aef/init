@@ -1,3 +1,13 @@
+=== 1.2.1 / 2010-12-02
+
+* 1 minor enchancement
+
+  * Aef::Init::VERSION String is now frozen
+
+* 1 minor bugfix
+
+  * Removed machine local paths from gemspec file
+
 === 1.2.0 / 2010-12-02
 
 * 3 minor enhancements

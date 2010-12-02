@@ -11,7 +11,7 @@ Hoe.spec 'init' do
   extra_dev_deps << ['rspec', '~> 2.2.0']
   extra_dev_deps << ['facets', '~> 2.9.0']
 
-  self.version = Aef::Init::VERSION 
+  self.version = Aef::Init::VERSION.dup 
   self.rubyforge_name = 'aef'
   self.url = 'https://rubyforge.org/projects/aef/'
   self.readme_file = 'README.rdoc'
