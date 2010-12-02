@@ -1,4 +1,3 @@
-.semver
 COPYING.txt
 History.txt
 Manifest.txt
@@ -6,7 +5,6 @@ README.rdoc
 Rakefile
 examples/mongrel.rb
 examples/murmur.rb
-init.gemspec
 lib/aef/init.rb
 lib/aef/init/init.rb
 spec/bin/mock_daemon.rb

@@ -17,7 +17,6 @@
 
 require './spec/spec_helper'
 
-require 'rubygems'
 require 'facets/timer'
 
 describe Aef::Init do

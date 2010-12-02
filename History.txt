@@ -1,3 +1,15 @@
+=== 1.2.0 / 2010-12-02
+
+* 3 minor enhancements
+
+  * Library is no longer dependent on RubyGems (although the specs are)
+  * Removed semvar gem because of incompatibilities with the Ruby Packaging Standard
+  * Updated legal information
+
+* 1 minor bugfix
+
+  * Fixed some typos in documentation
+
 === 1.1.0 / 2010-10-04
 
 * 3 minor enhancements

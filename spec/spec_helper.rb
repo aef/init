@@ -2,7 +2,7 @@
 #
 # This file is part of Init.
 #
-# Linebreak is free software: you can redistribute it and/or modify
+# Init is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
@@ -19,9 +19,7 @@ require 'rbconfig'
 require 'pathname'
 require 'tmpdir'
 require 'rubygems'
-
-$LOAD_PATH.unshift((Pathname.pwd + 'lib').to_s)
-
+require 'rspec'
 require 'aef/init'
 
 module Aef::Init::SpecHelper
@@ -44,6 +42,6 @@ module Aef::Init::SpecHelper
   end
 end
 
-Spec::Runner.configure do |config|
+RSpec.configure do |config|
   config.include Aef::Init::SpecHelper
 end

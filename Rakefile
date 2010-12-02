@@ -1,18 +1,17 @@
 # -*- ruby -*-
 
-require 'rubygems'
-require 'hoe'
-require 'semver'
+$LOAD_PATH.unshift('lib')
 
-Hoe.spec 'init' do |p|
+require 'hoe'
+require 'aef/init'
+
+Hoe.spec 'init' do
   developer('Alexander E. Fischer', 'aef@raxys.net')
 
-  extra_deps << ['semver', '>= 0.2.2']
+  extra_dev_deps << ['rspec', '~> 2.2.0']
+  extra_dev_deps << ['facets', '~> 2.9.0']
 
-  extra_dev_deps << ['rspec', '>= 1.3.0']
-  extra_dev_deps << ['facets', '>= 2.8.4']
-
-  self.version = SemVer.find.format '%M.%m.%p' 
+  self.version = Aef::Init::VERSION 
   self.rubyforge_name = 'aef'
   self.url = 'https://rubyforge.org/projects/aef/'
   self.readme_file = 'README.rdoc'

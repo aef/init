@@ -1,2 +1,4 @@
-pkg/*
-doc/*
+.idea
+doc
+nbproject/private
+pkg

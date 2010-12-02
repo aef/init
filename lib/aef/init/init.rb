@@ -17,7 +17,7 @@
 
 # Clean and simple *nix init scripts with Ruby
 class Aef::Init
-  VERSION = SemVer.find
+  VERSION = '1.2.0'
 
   # Call this to begin commandline parsing
   #
@@ -41,7 +41,8 @@ class Aef::Init
     # This is neccessary because since ruby 1.9, the instance_methods method
     # returns an array of symbols instead of an array of strings which it did
     # in 1.8
-    command = command.to_sym if Gem::Version.new("#{RUBY_VERSION}") >= Gem::Version.new('1.9')
+    ruby_version_components = RUBY_VERSION.split('.').map(&:to_i)
+    command = command.to_sym if ruby_version_components[0] >= 1 and ruby_version_components[1] >= 9
 
     if command == :default
       new.send(@@default_command)

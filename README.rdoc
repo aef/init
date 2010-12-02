@@ -11,15 +11,30 @@ Clean and simple *nix init scripts with Ruby
 
 == FEATURES/PROBLEMS:
 
-* Tested and fully working on:
-  * Ubuntu Linux 9.10 (Karmic Koala) on x86_64
-    * Ruby 1.8.7
-    * Ruby 1.9.2
-    * JRuby 1.5.3
-  * Debian GNU/Linux 4.0 (Lenny) on x86
-    * Ruby 1.8.7
-    * Ruby 1.9.2
-    * JRuby 1.5.3
+Tested and fully working on:
+* Ubuntu Linux 9.10 (Karmic Koala) on x86_64
+  * Ruby 1.8.7
+  * Ruby 1.9.2
+  * Ruby Enterprise Edition 2010.02
+  * JRuby 1.5.5
+  * Rubinius 1.1.1
+* Microsoft Windows XP SP2 on x86
+  * Ruby 1.8.7
+  * Ruby 1.9.2
+  * JRuby 1.5.5
+* Debian GNU/Linux 4.0 (Lenny) on x86
+  * Ruby 1.8.7
+  * Ruby 1.9.2
+  * JRuby 1.5.3
+
+This projects tries to conform to:
+* SemVer (and SemVerTag), http://semver.org/
+* Ruby Packaging Standard, http://chneukirchen.github.com/rps/
+* Gem Packaging: Best Practices, http://weblog.rubyonrails.org/2009/9/1/gem-packaging-best-practices
+
+Additional facts:
+* Written purely in Ruby
+* Does not modify any exisiting classes or modules
 
 == SYNOPSIS:
 
@@ -81,14 +96,14 @@ class between Init and the final implementation:
     ...
   end
 
-See the examples folder and spec/bin/simple_ini.rb for working example classes.
+See the examples folder and spec/bin/simple_init.rb for working example classes.
 
 == REQUIREMENTS:
 
-* rubygems
-* semver
+none
 
 === Additional for automated testing
+* rubygems
 * hoe
 * rspec
 * facets
@@ -122,7 +137,7 @@ have to install dependencies manually.
 
 === Automated testing
 
-You can test this package through rspec on your system. First find the path
+You can test this package through RSpec on your system. First find the path
 where the gem was installed to:
 
   gem which init
@@ -131,10 +146,6 @@ Go into the root directory of the installed gem and run the following command
 to start the test runner:
 
   rake spec
-
-On Windows systems you have to run the following instead:
-
-  spec spec/**/*_spec.rb
 
 If something goes wrong you should be noticed through failing examples.
 
@@ -147,13 +158,12 @@ command:
   git clone git://github.com/aef/init.git
 
 Help on making this software better is always very appreciated. If you want your
-changes to be included in the official release, please send me a patch through
-the project's tracker[https://rubyforge.org/tracker/?group_id=7890] at
+changes to be included in the official release, please send me pull request on github.com. Alternatevitely you can also send me a patch through the project's tracker[https://rubyforge.org/tracker/?group_id=7890] at
 rubyforge.org. You can generate a patch-file by the following command:
 
   git diff > patch.diff
 
-Please make sure to write tests for your changes and notice that I can't promise
+Please write tests for your changes and notice that I can't promise
 to include your changes before reviewing them.
 
 == LICENSE:
