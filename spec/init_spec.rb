@@ -17,9 +17,7 @@ OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 PERFORMANCE OF THIS SOFTWARE.
 =end
 
-require './spec/spec_helper'
-
-require 'facets/timer'
+require 'spec_helper'
 
 describe Aef::Init do
   before(:each) do
@@ -75,13 +73,12 @@ describe Aef::Init do
   it "should wait 3 seconds between stop and start through the restart command" do
     restart_output = @temp_dir + 'restart_output'
 
-    timer = Timer.new
-    timer.start
+    start_time = Time.now
 
     `#{executable} restart #{restart_output}`.should be_true
 
-    timer.stop
-    (timer.total_time.should > 1.5).should be_true
+    stop_time = Time.now
+    (stop_time - start_time).should > 1.5
   end
 
   it "should display a usage example if a wrong command is specified" do

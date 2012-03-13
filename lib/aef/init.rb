@@ -17,15 +17,117 @@ OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 PERFORMANCE OF THIS SOFTWARE.
 =end
 
+require 'set'
 require 'pathname'
+require 'aef/init/version'
 
-# Namespace for projects of Alexander E. Fischer <aef@raxys.net>
-#
+# Namespace for projects of Alexander E. Fischer <aef@raxys.net>.
+# 
 # If you want to be able to simply type Example instead of Aef::Example to
 # address classes in this namespace simply write the following before using the
-# classes:
+# classes.
 #
-#  include Aef
+# @example Including the namespace
+#   include Aef
+# @author Alexander E. Fischer
 module Aef
-  autoload :Init, 'aef/init/init'
+
+  # Clean and simple *nix init scripts with Ruby
+  class Init
+
+    class << self
+
+      # The default command to be called if no command is specified on the
+      # commandline.
+      #
+      # @note This used to be implicitly set to "restart" but in practice
+      #   caused far too much unwanted service restarts, so it is now not
+      #   enabled by default.
+      #
+      # @return [Symbol] a command's name
+      attr_writer :default_command
+
+      # The default command to be called if no command is specified on the
+      # commandline.
+      #
+      # @note This used to be implicitly set to "restart" but in practice
+      #   caused far too much unwanted service restarts, so it is now not
+      #   enabled by default.
+      def default_command(command = false)
+        if command.equal?(false)
+          @default_command
+        else
+          @default_command = command.to_sym
+        end
+      end
+
+      # The delay in seconds between the call of the stop and the start method
+      # in the predefined restart method.
+      #
+      # @return [Float] time in seconds
+      attr_writer :stop_start_delay
+
+      # The delay in seconds between the call of the stop and the start method
+      # in the predefined restart method.
+      #
+      # @param [Numeric, false] time in seconds, if false is given, the value
+      #   will be returned and not modified.
+      # @return [Float] time in seconds
+      def stop_start_delay(seconds = false)
+        if seconds.equal?(false)
+          @stop_start_delay ||= 0.0
+        else
+          @stop_start_delay = seconds.to_f
+        end
+      end
+
+      # Call this to begin commandline parse.
+      #
+      # If an invalid command is specified on the commandline, a usage example
+      # is displayed. If no command is specified, the default command is
+      # started, if one is set.
+      def parse
+        command = ARGV.shift || :default
+    
+        valid_commands = []
+    
+        ancestors.each do |klass|
+          valid_commands += klass.public_instance_methods(false)
+          break if klass == Aef::Init
+        end
+
+        valid_commands = valid_commands.sort.map(&:to_sym).uniq!
+    
+        command = command.to_sym
+    
+        if command == :default && default_command
+          new.send(default_command)
+        elsif valid_commands.include?(command)
+          new.send(command)
+        else
+          puts "Usage: #$PROGRAM_NAME {#{valid_commands.join('|')}}"; exit false
+        end
+      end
+
+    end
+
+    # The start method needs to be implemented in a subclass
+    def start
+      warn 'start method needs to be implemented'
+      exit false
+    end
+  
+    # The stop method needs to be implemented in a subclass
+    def stop
+      warn 'stop method needs to be implemented'
+      exit false
+    end
+  
+    # By default restart simply calls stop and then start
+    def restart
+      stop
+      sleep self.class.stop_start_delay
+      start
+    end
+  end
 end

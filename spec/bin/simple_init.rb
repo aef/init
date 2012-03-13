@@ -35,13 +35,15 @@ class MiddleInit < Aef::Init
   protected
 
   def middle_protected
-    warn 'This should not be executable as a command'; exit false
+    warn 'This should not be executable as a command'
+    exit false
   end
 
   private
 
   def middle_private
-    warn 'This should not be executable as a command'; exit false
+    warn 'This should not be executable as a command'
+    exit false
   end
 end
 
@@ -69,13 +71,15 @@ class SimpleInit < MiddleInit
   protected
 
   def end_protected
-    warn 'This should not be executable as a command'; exit false
+    warn 'This should not be executable as a command'
+    exit false
   end
 
   private
 
   def end_private
-    warn 'This should not be executable as a command'; exit false
+    warn 'This should not be executable as a command'
+    exit false
   end
 end
 

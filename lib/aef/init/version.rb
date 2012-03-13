@@ -17,29 +17,14 @@ OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 PERFORMANCE OF THIS SOFTWARE.
 =end
 
-unless defined?(Rubinius)
-  require 'simplecov'
-  SimpleCov.start
-end
+module Aef
+  class Init
 
-require 'rbconfig'
-require 'pathname'
-require 'tmpdir'
-require 'rspec'
-require 'init'
+    # The currently loaded library version
+    #
+    # Using Semantic Versioning (2.0.0-rc.1) rules
+    # @see http://semver.org/
+    VERSION = '2.0.0'.freeze
 
-module Aef::Init::SpecHelper
-  INTERPRETER = Pathname(RbConfig::CONFIG['bindir']) + RbConfig::CONFIG['ruby_install_name']
-
-  def create_temp_dir
-    Pathname(Dir.mktmpdir('init_spec'))
   end
-
-  def executable
-    "#{INTERPRETER} -Ilib spec/bin/simple_init.rb"
-  end
-end
-
-RSpec.configure do |config|
-  config.include Aef::Init::SpecHelper
 end
