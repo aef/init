@@ -161,7 +161,7 @@ following command:
 Please notice that you may need other keys for dependent libraries, so you may
 have to install dependencies manually.
 
-   [gemkey]: http://aef.name/crypto/aef-gem.pem
+   [gemkey]: https://aef.name/crypto/aef-gem.pem
 
 ### Normal
 
@@ -203,7 +203,7 @@ named like the version with a prefixed lower-case "v", as required by Semantic
 Versioning. Every tag will be signed by my [OpenPGP public key][openpgp] which
 enables you to verify your copy of the code cryptographically.
 
-   [openpgp]: http://aef.name/crypto/aef-openpgp.asc
+   [openpgp]: https://aef.name/crypto/aef-openpgp.asc
 
 Add the key to your GnuPG keyring by the following command:
 
