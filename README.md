@@ -94,9 +94,9 @@ A delay between the two commands can be defined:
 
 ~~~~~ ruby
   class DemoSubclass < Aef::Init
-    ...
+    …
     stop_start_delay 3
-    ...
+    …
   end
 ~~~~~
 
@@ -108,9 +108,9 @@ Still, a default command can be specified which is called if no command is provi
 
 ~~~~~ ruby
   class DemoSubclass < Aef::Init
-    ...
+    …
     default_command :start
-    ...
+    …
   end
 ~~~~~
 
@@ -126,7 +126,7 @@ build reusable libraries and keep your code DRY.
   end
 
   class DemoSubclass > CommonCommands
-    ...
+    …
   end
 ~~~~~
 
@@ -193,11 +193,27 @@ or ideas for improvement of this software.
 
 ### Source code
 
-This software is developed in the source code management system git hosted
-at github.com. You can download the most recent sourcecode through the
-following command:
+This software is developed in the source code management system Git. There are
+several synchronized mirror repositories available:
 
-    git clone https://github.com/aef/init.git
+* GitHub
+    
+    URL: https://github.com/aef/init.git
+
+* Gitorious
+    
+    URL: https://git.gitorious.org/init/init.git
+
+* BitBucket
+    
+    URL: https://bitbucket.org/alefi/init.git
+
+You can get the latest source code with the following command, while
+exchanging the placeholder for one of the mirror URLs:
+
+    git clone MIRROR_URL
+
+#### Tags
 
 The final commit before each released gem version will be marked by a tag
 named like the version with a prefixed lower-case "v", as required by Semantic
