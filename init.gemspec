@@ -43,12 +43,12 @@ scripts in Ruby.
 
   s.required_ruby_version = '>= 1.8.7'
 
-  s.add_development_dependency('bundler', '~> 1.0.22')
-  s.add_development_dependency('rake', '~> 0.9.2')
-  s.add_development_dependency('rspec', '~> 2.8.0')
-  s.add_development_dependency('simplecov', '~> 0.6.1')
-  s.add_development_dependency('pry', '~> 0.9.8')
-  s.add_development_dependency('yard', '~> 0.7.5')
+  s.add_development_dependency('bundler', '~> 1.2.1')
+  s.add_development_dependency('rake', '~> 0.9.2.2')
+  s.add_development_dependency('rspec', '~> 2.11.0')
+  s.add_development_dependency('simplecov', '~> 0.6.4')
+  s.add_development_dependency('pry', '~> 0.9.10')
+  s.add_development_dependency('yard', '~> 0.8.2.1')
 
   s.cert_chain = "#{ENV['GEM_CERT_CHAIN']}".split(':')
   s.signing_key = ENV['GEM_SIGNING_KEY']

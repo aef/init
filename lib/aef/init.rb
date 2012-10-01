@@ -70,8 +70,8 @@ module Aef
       # The delay in seconds between the call of the stop and the start method
       # in the predefined restart method.
       #
-      # @param [Numeric, false] time in seconds, if false is given, the value
-      #   will be returned and not modified.
+      # @param [Numeric, false] seconds time in seconds, if false is given,
+      #   the value will be returned and not modified.
       # @return [Float] time in seconds
       def stop_start_delay(seconds = false)
         if seconds.equal?(false)

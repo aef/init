@@ -3,6 +3,7 @@ Init
 
 [![Build Status](https://secure.travis-ci.org/aef/init.png)](
 https://secure.travis-ci.org/aef/init)
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/jnicklas/capybara)
 
 * [Documentation][docs]
 * [Project][project]
