@@ -184,7 +184,7 @@ If something goes wrong you should be noticed through failing examples.
 Development
 -----------
 
-### Bugs Reports and Feature Requests
+### Bug reports and feature requests
 
 Please use the [issue tracker][issues] on github.com to let me know about errors
 or ideas for improvement of this software.
