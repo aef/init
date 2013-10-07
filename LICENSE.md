@@ -1,4 +1,4 @@
-Copyright Alexander E. Fischer <aef@raxys.net>, 2009-2012
+Copyright Alexander E. Fischer <aef@raxys.net>, 2009-2013
 
 Init is licensed under the following ISC-style license:
 

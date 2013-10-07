@@ -271,7 +271,7 @@ to include your changes before reviewing them.
 License
 -------
 
-Copyright Alexander E. Fischer <aef@raxys.net>, 2009-2012
+Copyright Alexander E. Fischer <aef@raxys.net>, 2009-2013
 
 This file is part of Init.
 
