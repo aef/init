@@ -27,6 +27,7 @@ require 'pathname'
 require 'tmpdir'
 require 'rspec'
 require 'init'
+require 'pry'
 
 module Aef::Init::SpecHelper
   INTERPRETER = Pathname(RbConfig::CONFIG['bindir']) + RbConfig::CONFIG['ruby_install_name']
