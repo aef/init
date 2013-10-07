@@ -35,6 +35,8 @@ module Aef
   # Clean and simple *nix init scripts with Ruby
   class Init
 
+    VARIABLE_PREFIX = 'aef_init_variable'.freeze
+
     class << self
 
       # The default command to be called if no command is specified on the
@@ -96,7 +98,8 @@ module Aef
           break if klass == Aef::Init
         end
 
-        valid_commands = valid_commands.sort.map(&:to_sym).uniq!
+        valid_commands = valid_commands.sort.map(&:to_sym)
+        valid_commands.uniq!
     
         command = command.to_sym
     
@@ -105,7 +108,60 @@ module Aef
         elsif valid_commands.include?(command)
           new.send(command)
         else
-          puts "Usage: #$PROGRAM_NAME {#{valid_commands.join('|')}}"; exit false
+          puts "Usage: #$PROGRAM_NAME {#{valid_commands.join('|')}}"
+          exit false
+        end
+      end
+
+      # Defines a lazy-evaluated class variable.
+      #
+      # @return [Proc] the given block
+      def set(name, &block)
+        instance_variable_set("@#{VARIABLE_PREFIX}_#{name}", block)
+      end
+
+      # Checks if a lazy-evaluated class variable is defined.
+      #
+      # @return [true, false] true if the variable is defined. false otherwise.
+      def set?(name)
+        !!find_variable_recursive(name)
+      end
+
+      # Evaluates a lazy-evaluated class variable.
+      #
+      # @return [Object] the result of the evaluated block
+      def get(name)
+        if klass = find_variable_recursive(name)
+          block = klass.instance_variable_get("@#{VARIABLE_PREFIX}_#{name}")
+          instance_eval &block
+        else
+          nil
+        end
+      end
+
+      protected
+
+      # Finds out which class in the class hierarchy defined a given variable,
+      # if at all.
+      #
+      # @return [Class, false] if self contains the given variable self is
+      #   returned, otherwise false
+      def find_variable_recursive(name)
+        if instance_variable_defined?("@#{VARIABLE_PREFIX}_#{name}")
+          self
+        elsif superclass.ancestors.include?(Init)
+          superclass.find_variable_recursive(name)
+        else
+          false
+        end
+      end
+
+      # Makes lazy-evaluated class variables available in public interface
+      def method_missing(name, *arguments)
+        if arguments.empty? && set?(name)
+          get(name)
+        else
+          super
         end
       end
 
@@ -129,5 +185,17 @@ module Aef
       sleep self.class.stop_start_delay
       start
     end
+
+    protected
+
+    # Makes lazy-evaluated class variables available in the instance
+    def method_missing(name, *arguments)
+      if arguments.empty? && self.class.set?(name)
+        self.class.get(name)
+      else
+        super
+      end
+    end
+
   end
 end

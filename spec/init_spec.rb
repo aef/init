@@ -103,4 +103,63 @@ describe Aef::Init do
     `#{executable} end_protected`.should == usage_information
     `#{executable} end_private`.should == usage_information
   end
+
+  describe "lazy-evaluated class variables" do
+    let(:base_class) { Class.new(Aef::Init) }
+    let(:sub_class)  { Class.new(base_class) }
+
+    describe ".set" do
+      it "should be definable" do
+        base_class.set(:some_name) { 123 }
+
+        base_class.some_name.should eql 123
+      end
+
+      it "should not evaluate the block at definition" do
+        block = Proc.new { 123 }
+        block.should_not_receive(:call)
+
+        base_class.set(:some_name, &block)
+      end
+
+      it "should override equally-named inherited variables" do
+        base_class.set(:some_name) { 123 }
+        
+        expect {
+          sub_class.set(:some_name) { 456 }
+        }.to change{ sub_class.get(:some_name) }.from(123).to(456)
+
+        base_class.get(:some_name).should eql(123)
+      end
+    end
+
+    describe ".set?" do
+      it "should tell if a variable is is defined or not" do
+        expect {
+          base_class.set(:some_name) { 123 }
+        }.to change{ base_class.set?(:some_name) }.from(false).to(true)
+      end
+
+      it "should work with inherited variables" do
+        expect {
+          base_class.set(:some_name) { 123 }
+        }.to change{ sub_class.set?(:some_name) }.from(false).to(true)
+      end
+    end
+
+    describe ".get" do
+      it "should return the defined block's evaluated result" do
+        base_class.set(:some_name) { 123 }
+
+        base_class.get(:some_name).should eql 123
+      end
+
+      it "should inherit variables from superclasses" do
+        base_class.set(:some_name) { 123 }
+
+        sub_class.get(:some_name).should eql 123
+      end
+    end
+  end
+
 end
