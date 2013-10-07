@@ -1,7 +1,14 @@
+2.1.0 / 2013-10-07
+==================
+
+* 1 major improvement
+
+  * Added lazily-evaluated, inheritable variable system
+
 2.0.1 / 2012-10-02
 ==================
 
-* minor improvement
+* 1 minor improvement
 
   * Updated documentation
 
