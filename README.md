@@ -90,7 +90,7 @@ in a block that only calls it if the script is executed on the commandline.
 
 There is no need to implement the command restart in most cases, as there is one
 defined by default, which simply calls the commands stop and start in a row.
-A delay between the two commands can be defined:
+A delay in seconds between the two commands can be defined:
 
 ~~~~~ ruby
   class DemoSubclass < Aef::Init
@@ -101,7 +101,7 @@ A delay between the two commands can be defined:
 ~~~~~
 
 Notice that in earlier versions the default command was preset to :restart
-which was not as useful in practice than expected. Many unwanted restarts were
+which was not as useful in practice as expected. Many unwanted restarts were
 triggered because of this, so I don't recommend using this feature any more.
 
 Still, a default command can be specified which is called if no command is provided on the command-line:
@@ -130,7 +130,34 @@ build reusable libraries and keep your code DRY.
   end
 ~~~~~
 
-See the examples folder and spec/bin/simple_init.rb for working example classes.
+As of 2.1.0 there is a way to specify lazily-interpreted variables which are
+inherited by sub classes.
+
+~~~~~ ruby
+  class MiddleClass < Aef::Init
+    # Setting some variables
+    set(:executable) { 'daemon' }
+    set(:arguments)  { '-abc' }
+
+    # Access variables inside the defintion of a new one
+    set(:command) { path + executable }
+
+    # Utilize the variables in command definitions just like local variables
+    def start
+      `#{command} #{arguments}`
+    end
+  end
+
+  class LeafClass < MiddleClass
+    # Overrides the previous value 'daemon'
+    set(:daemon) { 'special-daemon' }
+
+    # Sets the needed but previously undefined path variable
+    set(:path)   { Pathname.new('/opt/something') }
+  end
+~~~~~
+
+See the examples/ folder and spec/bin/simple_init.rb for working example classes.
 
 Requirements
 ------------
