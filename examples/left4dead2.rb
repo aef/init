@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # encoding: UTF-8
 =begin
-Copyright Alexander E. Fischer <aef@raxys.net>, 2009-2012
+Copyright Alexander E. Fischer <aef@raxys.net>, 2009-2013
 
 This file is part of Init.
 
@@ -18,41 +18,33 @@ OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 PERFORMANCE OF THIS SOFTWARE.
 =end
 
+# This must be set to an absolute path where source_dedicated.rb is in.
+$LOAD_PATH << File.expand_path('..', __FILE__)
+
+require 'source_dedicated'
+
 ### BEGIN INIT INFO
-# Provides:          murmur
+# Provides:          left4dead2
 # Required-Start:    $local_fs $remote_fs $syslog $named $network $time
 # Required-Stop:     $local_fs $remote_fs $syslog $named $network
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
 ### END INIT INFO
 
-require 'init'
+# An example init script for the dedicated server daemon of the game
+# Left 4 Dead 2
+class Left4Dead2 < SourceDedicated
+  set(:working_directory) { Pathname.new('/opt/left4dead2/left4dead2') }
 
-# An example init script for the server daemon of voice chat application Mumble
-class Murmur < Aef::Init
-  set(:path)    { Pathname('/opt/murmur') }
-  set(:daemon)  { path + 'murmur.x86' }
-  set(:pidfile) { Pathname('/var/run/murmur/murmur.pid') }
-  set(:user)    { 'mumble' }
-
-  # Defines the seconds to wait between stop and start in the predefined restart
-  # command
-  stop_start_delay 1
-
-  # If not set this defaults to :restart
-  default_command :start
-
-  # An implementation of the start method for the mumble daemon
-  def start
-    system("start-stop-daemon --start --chdir #{path} --chuid #{user} --exec #{daemon}")
-  end
-
-  # An implementation of the stop method for the mumble daemon
-  def stop
-    system("start-stop-daemon --stop --pidfile #{pidfile}")
-  end
+  set(:session_name) { 'left4dead2' }
+  set(:user)         { 'l4d2' }
+  
+  set(:frequency)    { '1234.000000' }
+  set(:tickrate)     { 100 }
+  set(:ip_address)   { '1.2.3.4' }
+  set(:port)         { 27016 }
 end
 
 # The parser is only executed if the script is executed as a program, never
 # when the script is required in a ruby program
-Murmur.parse if __FILE__ == $PROGRAM_NAME
+Left4Dead2.parse if __FILE__ == $PROGRAM_NAME
