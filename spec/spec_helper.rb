@@ -17,9 +17,20 @@ OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 PERFORMANCE OF THIS SOFTWARE.
 =end
 
-unless defined?(Rubinius)
-  require 'simplecov'
-  SimpleCov.start
+require 'bundler'
+
+Bundler.setup
+
+require 'simplecov'
+require 'coveralls'
+
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+  SimpleCov::Formatter::HTMLFormatter,
+  Coveralls::SimpleCov::Formatter
+]
+
+SimpleCov.start do
+  add_filter "/spec/"
 end
 
 require 'rbconfig'
