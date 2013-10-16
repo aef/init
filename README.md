@@ -1,7 +1,7 @@
 Init
 ====
 
-[![Gem Version](https://badge.fury.io/rb/init.png)](http://badge.fury.io/rb/init)
+[![Gem Version](https://badge.fury.io/rb/init.png)](https://badge.fury.io/rb/init)
 [![Build Status](https://secure.travis-ci.org/aef/init.png)](https://secure.travis-ci.org/aef/init)
 [![Dependency Status](https://gemnasium.com/aef/init.png)](https://gemnasium.com/aef/init)
 [![Code Climate](https://codeclimate.com/github/aef/init.png)](https://codeclimate.com/github/aef/init)
@@ -222,6 +222,8 @@ or ideas for improvement of this software.
    [issues]: https://github.com/aef/init/issues/
 
 ### Source code
+
+#### Distribution
 
 This software is developed in the source code management system Git. There are
 several synchronized mirror repositories available:
