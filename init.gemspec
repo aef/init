@@ -19,37 +19,36 @@ PERFORMANCE OF THIS SOFTWARE.
 
 require File.expand_path('../lib/aef/init/version', __FILE__)
 
-Gem::Specification.new do |s|
-  s.name        = 'init'
-  s.version     = Aef::Init::VERSION.dup
-  s.authors     = ['Alexander E. Fischer']
-  s.email       = ['aef@raxys.net']
-  s.homepage    = 'http://github.com/aef/init'
-  s.license     = 'ISC'
-  s.summary     = 'Clean and simple *nix init scripts with Ruby'
-  s.description = <<-DESCRIPTION
+Gem::Specification.new do |gem|
+  gem.name    = "init"
+  gem.version = Aef::Init::VERSION.dup
+  gem.authors = ["Alexander E. Fischer"]
+  gem.email   = ["aef@raxys.net"]
+  gem.description = <<-DESCRIPTION
 Init is a lightweight framework for writing readable, reusable *nix init
 scripts in Ruby.
   DESCRIPTION
+  gem.summary  = "Clean and simple *nix init scripts with Ruby"
+  gem.homepage = "https://aef.name/"
+  gem.license  = "ISC"
+  gem.has_rdoc = "yard"
+  gem.extra_rdoc_files  = ["HISTORY.md", "LICENSE.md"]
+  gem.rubyforge_project = nil
 
-  s.rubyforge_project = nil
-  s.has_rdoc          = 'yard'
-  s.extra_rdoc_files  = ['HISTORY.md', 'LICENSE.md']
+  gem.files         = `git ls-files`.split($\)
+  gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
+  gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
+  gem.require_paths = ["lib"]
 
-  s.files         = `git ls-files`.lines.map(&:chomp)
-  s.test_files    = `git ls-files -- {test,spec,features}/*`.lines.map(&:chomp)
-  s.executables   = `git ls-files -- bin/*`.lines.map{|f| File.basename(f.chomp) }
-  s.require_paths = ["lib"]
+  gem.required_ruby_version = '>= 1.9.3'
 
-  s.required_ruby_version = '>= 1.8.7'
+  gem.add_development_dependency('rake')
+  gem.add_development_dependency('bundler')
+  gem.add_development_dependency('rspec', '~> 2.14.1')
+  gem.add_development_dependency('simplecov')
+  gem.add_development_dependency('pry')
+  gem.add_development_dependency('yard')
 
-  s.add_development_dependency('bundler')
-  s.add_development_dependency('rake')
-  s.add_development_dependency('rspec', '~> 2.14.1')
-  s.add_development_dependency('simplecov', '~> 0.7.1')
-  s.add_development_dependency('pry', '~> 0.9.12.2')
-  s.add_development_dependency('yard', '~> 0.8.7.2')
-
-  s.cert_chain = "#{ENV['GEM_CERT_CHAIN']}".split(':')
-  s.signing_key = ENV['GEM_SIGNING_KEY']
+  gem.cert_chain = "#{ENV['GEM_CERT_CHAIN']}".split(':')
+  gem.signing_key = ENV['GEM_SIGNING_KEY']
 end
